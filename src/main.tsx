@@ -1,25 +1,9 @@
 import { ChakraProvider } from "@chakra-ui/react";
 import * as ReactDOM from "react-dom/client";
 import { QueryClientProvider, QueryClient } from "@tanstack/react-query";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Products from "./Display/Products";
-import ViewProduct from "./Display/ViewProduct";
-import SearchResult from "./Display/SearchResult";
+import { RouterProvider } from "react-router-dom";
 
-const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Products />,
-  },
-  {
-    path: "/viewproduct",
-    element: <ViewProduct />,
-  },
-  {
-    path: "/search",
-    element: <SearchResult />,
-  },
-]);
+import { router } from "./Helper/Router";
 const queryClient = new QueryClient();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <ChakraProvider>

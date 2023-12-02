@@ -1,6 +1,6 @@
-import { useState } from "react";
-import axios from "axios";
-import SearchBar from "../Components/SearchBar";
+import { useEffect, useState } from "react";
+import apiCall from "../Helper/Axios";
+// import SearchBar from "../Components/SearchBar";
 import {
   Box,
   Card,
@@ -28,7 +28,8 @@ import {
   useReactTable,
   getCoreRowModel,
 } from "@tanstack/react-table";
-import ItemCard, { item } from "../Components/ItemCard";
+import ItemCard from "../Components/ItemCard";
+import { item } from "../Interface/Item";
 type Product = {
   // brand: string;
   category: string;
@@ -42,88 +43,92 @@ type Product = {
   // rating: number;
   // thumbnail: string;
 };
-const columnHelper = createColumnHelper<Product>();
-const columns = [
-  columnHelper.accessor("id", {
-    header: () => "ID",
-    cell: (info) => info.getValue(),
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("title", {
-    header: () => "Title",
-    cell: (info) => info.renderValue(),
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("category", {
-    header: () => "Category",
-    cell: (info) => info.renderValue(),
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("price", {
-    header: () => "Price",
-    cell: (info) => info.renderValue(),
-    footer: (info) => info.column.id,
-  }),
-  columnHelper.accessor("stock", {
-    header: () => "Stock",
-    cell: (info) => info.renderValue(),
-    footer: (info) => info.column.id,
-  }),
-];
+// const columnHelper = createColumnHelper<Product>();
+// const columns = [
+//   columnHelper.accessor("id", {
+//     header: () => "ID",
+//     cell: (info) => info.getValue(),
+//     footer: (info) => info.column.id,
+//   }),
+//   columnHelper.accessor("title", {
+//     header: () => "Title",
+//     cell: (info) => info.renderValue(),
+//     footer: (info) => info.column.id,
+//   }),
+//   columnHelper.accessor("category", {
+//     header: () => "Category",
+//     cell: (info) => info.renderValue(),
+//     footer: (info) => info.column.id,
+//   }),
+//   columnHelper.accessor("price", {
+//     header: () => "Price",
+//     cell: (info) => info.renderValue(),
+//     footer: (info) => info.column.id,
+//   }),
+//   columnHelper.accessor("stock", {
+//     header: () => "Stock",
+//     cell: (info) => info.renderValue(),
+//     footer: (info) => info.column.id,
+//   }),
+// ];
 const Products = () => {
   const [limit, setLimit] = useState(10);
   const getProducts = async () => {
-    const productItems = await axios.get(
-      `https://dummyjson.com/products?limit=${limit}`
-    );
-    // console.log(productItems?.data?.products);
+    const productItems = await apiCall.get(`products?limit=${limit}`);
+    console.log("first");
+    // const productItems = await apiCall.get(`api/workouts`);
+    console.log(productItems?.data, "helo");
     return productItems?.data?.products;
   };
-
   const { data, isLoading, error } = useQuery({
     queryKey: ["products", limit],
     queryFn: getProducts,
   });
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-  });
+
+  // const table = useReactTable({
+  //   data,
+  //   columns,
+  //   getCoreRowModel: getCoreRowModel(),
+  // });
   if (error) {
     return <div>{error.message}</div>;
   }
   return (
-    <Box bg={"whiteAlpha"} p={4}>
-      <SearchBar />
-      <InputGroup mt={2}>
-        <Text>Select Limit</Text>
-        <Select
-          placeholder="Select One"
-          onChange={(e) => setLimit(Number(e.target.value))}
-        >
-          <option value="10">10</option>
-          <option value="20">20</option>
-          <option value="30">30</option>
-        </Select>
-      </InputGroup>
+    <>
+      {/* <SearchBar /> */}
+      <Box bg={"whiteAlpha"} p={4}>
+        <InputGroup mt={2}>
+          <Text>Select Limit</Text>
+          <Select
+            placeholder="Select One"
+            onChange={(e) => setLimit(Number(e.target.value))}
+          >
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+            <option value="60">60</option>
+            <option value="100">100</option>
+          </Select>
+        </InputGroup>
 
-      <Card>
-        <CardHeader>
-          <Text align={"center"}>Products List</Text>
-        </CardHeader>
-        {isLoading ? (
-          <Center>
-            <Spinner
-              thickness="4px"
-              speed="0.65s"
-              emptyColor="gray.200"
-              color="blue.500"
-              size="xl"
-            />
-          </Center>
-        ) : (
-          <CardBody>
-            {/* <Table>
+        <Card>
+          <CardHeader>
+            <Text align={"center"}>Products List</Text>
+            {isLoading ? (
+              <Center>
+                <Spinner
+                  thickness="4px"
+                  speed="0.65s"
+                  emptyColor="gray.200"
+                  color="blue.500"
+                  size="xl"
+                />
+              </Center>
+            ) : (
+              <CardBody>
+                {/* <Table>
               <Thead>
                 {table.getHeaderGroups().map((headerGroup) => (
                   <Tr key={headerGroup.id}>
@@ -171,21 +176,24 @@ const Products = () => {
                 ))}
               </Tfoot>
             </Table> */}
-            <Box>
-              {data?.map((item: item, index: number) => (
-                <ItemCard
-                  key={index}
-                  thumbnail={item.thumbnail}
-                  title={item.title}
-                  price={item.price}
-                  description={item.description}
-                />
-              ))}
-            </Box>
-          </CardBody>
-        )}
-      </Card>
-    </Box>
+                <Box>
+                  {data?.map((item: item, index: number) => (
+                    <ItemCard
+                      key={index}
+                      id={item.id}
+                      thumbnail={item.thumbnail}
+                      title={item.title}
+                      price={item.price}
+                      description={item.description}
+                    />
+                  ))}
+                </Box>
+              </CardBody>
+            )}
+          </CardHeader>
+        </Card>
+      </Box>
+    </>
   );
 };
 

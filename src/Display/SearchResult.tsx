@@ -1,6 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-import axios from "axios";
+import apiCall from "../Helper/Axios";
+import { item } from "../Interface/Item";
 import { AbsoluteCenter, Box, Center, Spinner } from "@chakra-ui/react";
 import ItemCard from "../Components/ItemCard";
 import SearchBar from "../Components/SearchBar";
@@ -10,10 +11,9 @@ const SearchResult = () => {
   const title = searchParam.get("title");
   const getSearchedProducts = async () => {
     // console.log(title);
-    const product = await axios.get(
-      `https://dummyjson.com/products/search?q=${title}`
-    );
+    const product = await apiCall.get(`products/search?q=${title}`);
     const searchedValue = product?.data?.products;
+    console.log(searchedValue);
     return searchedValue;
   };
   const { data, isLoading, error } = useQuery({
@@ -23,7 +23,7 @@ const SearchResult = () => {
   if (error) {
     console.log(error.message);
   }
-  //   console.log(data);
+  // console.log(data);
   return (
     <>
       <SearchBar />
@@ -40,13 +40,14 @@ const SearchResult = () => {
       ) : (
         <Box p={4} gap={4}>
           {data &&
-            data?.map((item: any) => (
+            data?.map(({ thumbnail, title, price, description, id }: item) => (
               <ItemCard
-                key={item.id}
-                thumbnail={item.thumbnail}
-                title={item.title}
-                price={item.price}
-                description={item.description}
+                key={id}
+                id={id}
+                thumbnail={thumbnail}
+                title={title}
+                price={price}
+                description={description}
               />
             ))}
           {!data?.length && (

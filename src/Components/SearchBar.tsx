@@ -1,4 +1,10 @@
-import { Button, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Input,
+  InputGroup,
+  InputLeftElement,
+} from "@chakra-ui/react";
 import { useState } from "react";
 import { GoSearch } from "react-icons/go";
 import { useNavigate, useSearchParams } from "react-router-dom";
@@ -13,7 +19,7 @@ const SearchBar = () => {
     navigate(`/search?title=${searchValue}`);
   };
   return (
-    <>
+    <Box p={2}>
       <InputGroup>
         <InputLeftElement>
           <GoSearch />
@@ -26,7 +32,7 @@ const SearchBar = () => {
           Search
         </Button>
       </InputGroup>
-    </>
+    </Box>
   );
 };
 
