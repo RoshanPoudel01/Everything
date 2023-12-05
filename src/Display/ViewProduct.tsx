@@ -8,6 +8,7 @@ import {
   Spinner,
   Stack,
   Text,
+  Badge,
 } from "@chakra-ui/react";
 import apiCall from "../Helper/Axios";
 import { item } from "../Interface/Item";
@@ -39,8 +40,8 @@ const ViewProduct = () => {
   return (
     <>
       <SearchBar />
-      <Box bg={"whiteAlpha"} p={4}>
-        <Card m={2} p={2}>
+      <Box p={4}>
+        <Card m={2} bgColor={"#E2E8F0"} p={2}>
           <CardBody>
             {isLoading ? (
               <Spinner />
@@ -51,24 +52,34 @@ const ViewProduct = () => {
                   category,
                   price,
                   description,
-                  brand,
+                  title,
                   id,
                   stock,
                 }: item) => (
                   <Stack key={id}>
-                    <Text fontSize={"lg"} mb={2} fontWeight={"bold"}>
-                      {title}
-                    </Text>
                     <Flex>
-                      <Image boxSize={"400px"} src={thumbnail} />
-                      <Stack pl={2}>
-                        <Text fontSize={"lg"}>Category: {category}</Text>
-                        <Text fontSize={"lg"}>Brand: {brand}</Text>
-                        <Text fontSize={"lg"}>{description}</Text>
+                      <Image boxSize={"400px"} width={"60%"} src={thumbnail} />
+                      <Stack pl={8}>
+                        <Text fontSize={"md"}>{category?.toUpperCase()}</Text>
+                        <Text fontSize={"lg"} fontWeight={"bold"}>
+                          {title}
+                        </Text>
                         <Text fontSize={"lg"} fontWeight={"bold"}>
                           ${price}
                         </Text>
-                        <Text fontSize={"lg"}>Instock: {stock}</Text>
+                        <Text fontSize={"lg"} fontWeight={"light"}>
+                          {description}
+                        </Text>
+
+                        <Badge
+                          fontSize={"lg"}
+                          colorScheme="blue"
+                          rounded={"md"}
+                          maxWidth={"220px"}
+                        >
+                          {" "}
+                          {stock} Products in Stock
+                        </Badge>
                         <Button
                           maxWidth={"100px"}
                           colorScheme="blue"

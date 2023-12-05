@@ -30,6 +30,7 @@ import {
 } from "@tanstack/react-table";
 import ItemCard from "../Components/ItemCard";
 import { item } from "../Interface/Item";
+import SearchBar from "../Components/SearchBar";
 type Product = {
   // brand: string;
   category: string;
@@ -77,7 +78,7 @@ const Products = () => {
     const productItems = await apiCall.get(`products?limit=${limit}`);
     console.log("first");
     // const productItems = await apiCall.get(`api/workouts`);
-    console.log(productItems?.data, "helo");
+    // console.log(productItems?.data, "helo");
     return productItems?.data?.products;
   };
   const { data, isLoading, error } = useQuery({
@@ -95,7 +96,7 @@ const Products = () => {
   }
   return (
     <>
-      {/* <SearchBar /> */}
+      <SearchBar />
       <Box bg={"whiteAlpha"} p={4}>
         <InputGroup mt={2}>
           <Text>Select Limit</Text>
@@ -177,16 +178,18 @@ const Products = () => {
               </Tfoot>
             </Table> */}
                 <Box>
-                  {data?.map((item: item, index: number) => (
-                    <ItemCard
-                      key={index}
-                      id={item.id}
-                      thumbnail={item.thumbnail}
-                      title={item.title}
-                      price={item.price}
-                      description={item.description}
-                    />
-                  ))}
+                  {data?.map(
+                    ({ id, thumbnail, title, price, description }: item) => (
+                      <ItemCard
+                        key={id}
+                        id={id}
+                        thumbnail={thumbnail}
+                        title={title}
+                        price={price}
+                        description={description}
+                      />
+                    )
+                  )}
                 </Box>
               </CardBody>
             )}

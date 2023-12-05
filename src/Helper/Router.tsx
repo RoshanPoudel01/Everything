@@ -4,9 +4,14 @@ import ViewProduct from "../Display/ViewProduct";
 import SearchResult from "../Display/SearchResult";
 import { NavLink } from "./NavLink";
 import ProductForm from "../Form/ProductForm";
+import Home from "../Display/Home";
 export const router = createBrowserRouter([
   {
     path: NavLink?.FirstPage,
+    element: <Home />,
+  },
+  {
+    path: NavLink?.Products,
     element: <Products />,
   },
   {

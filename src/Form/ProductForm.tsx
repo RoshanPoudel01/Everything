@@ -14,13 +14,31 @@ import apiCall from "../Helper/Axios";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 
+const schema = yup.object().shape({
+  username: yup
+    .string()
+    .required("Name is required!!")
+    .matches(/^[aA-zZ\s]+$/, "Name cannot contain values other then A-Za-z "),
+  phone: yup
+    .string()
+    .required("Phone number is required")
+    .matches(/^[0-9\s]+$/, "Phone can only be number value "),
+  email: yup.string().email().required("E-mail is required!!"),
+  password: yup
+    .string()
+    .min(8, "Password must be of more than 8 characters")
+    .max(32, "Password must be of less than 32 characters")
+    .required("Password is required"),
+  gender: yup.string().required("Please Choose a value"),
+  fileInput: yup.string().required("Please choose a file"),
+});
 // const schema = yup.object().shape({
-//   username: yup.string().required("Name is required!!"),
+//   title: yup.string().required("Name is required!!"),
 //   // .matches(/^[aA-zZ\s]+$/, "Name cannot contain values other then A-Za-z "),
-//   phone: yup.string().required("Phone number is required"),
+//   reps: yup.string().required("Phone number is required"),
 //   // .matches(/^[0-9\s]+$/, "Phone can only be number value "),
 //   // email: yup.string().email().required("E-mail is required!!"),
-//   password: yup
+//   load: yup
 //     .string()
 //     // .min(8, "Password must be of more than 8 characters")
 //     // .max(32, "Password must be of less than 32 characters")
@@ -28,20 +46,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 //   // gender: yup.string().required("Please Choose a value"),
 //   // fileInput: yup.string().required("Please choose a file"),
 // });
-const schema = yup.object().shape({
-  title: yup.string().required("Name is required!!"),
-  // .matches(/^[aA-zZ\s]+$/, "Name cannot contain values other then A-Za-z "),
-  reps: yup.string().required("Phone number is required"),
-  // .matches(/^[0-9\s]+$/, "Phone can only be number value "),
-  // email: yup.string().email().required("E-mail is required!!"),
-  load: yup
-    .string()
-    // .min(8, "Password must be of more than 8 characters")
-    // .max(32, "Password must be of less than 32 characters")
-    .required("Password is required"),
-  // gender: yup.string().required("Please Choose a value"),
-  // fileInput: yup.string().required("Please choose a file"),
-});
 
 // interface formData {
 //   username: string;
@@ -77,13 +81,13 @@ const ProductForm = () => {
             <Box>
               <FormLabel>Name</FormLabel>
               <Input
-                id="title"
+                id="username"
                 variant={"outline"}
-                {...register("title", { required: true })}
+                {...register("username", { required: true })}
               />
-              <Text color="red">{errors.title?.message}</Text>
+              <Text color="red">{errors.username?.message}</Text>
             </Box>
-            {/* <Box>
+            <Box>
               <FormLabel>Email</FormLabel>
               <Input
                 id="email"
@@ -92,8 +96,8 @@ const ProductForm = () => {
                 {...register("email")}
               />
               <Text color="red">{errors.email?.message}</Text>
-            </Box> */}
-            <Box>
+            </Box>
+            {/* <Box>
               <FormLabel>Reps</FormLabel>
               <Input
                 id="reps"
@@ -102,18 +106,18 @@ const ProductForm = () => {
                 {...register("reps")}
               />
               <Text color="red">{errors.reps?.message}</Text>
-            </Box>
+            </Box> */}
             <Box>
               <FormLabel>Load</FormLabel>
               <Input
                 variant={"outline"}
-                id="load"
+                id="phone"
                 type="number"
-                {...register("load")}
+                {...register("phone")}
               />
-              <Text color="red">{errors.load?.message}</Text>
+              <Text color="red">{errors.phone?.message}</Text>
             </Box>
-            {/* <Box>
+            <Box>
               <FormLabel>Gender</FormLabel>
 
               <Select {...register("gender")} placeholder="Select One Value">
@@ -130,7 +134,7 @@ const ProductForm = () => {
                 variant={"outline"}
               />
               <Text color="red">{errors.fileInput?.message}</Text>
-            </Box> */}
+            </Box>
             <Button
               onClick={handleSubmit(handleRegister)}
               mt={2}

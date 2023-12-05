@@ -7,4 +7,5 @@ export interface item {
   category?: string;
   brand?: string;
   stock?: number;
+  isGrid?: boolean;
 }
