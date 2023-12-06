@@ -9,11 +9,17 @@ import {
   Stack,
   Text,
   Badge,
+  NumberInputField,
+  NumberInputStepper,
+  NumberIncrementStepper,
+  NumberDecrementStepper,
+  NumberInput,
+  HStack,
 } from "@chakra-ui/react";
 import apiCall from "../Helper/Axios";
 import { item } from "../Interface/Item";
 import { useSearchParams } from "react-router-dom";
-import SearchBar from "../Components/SearchBar";
+
 import { useQuery } from "@tanstack/react-query";
 
 const ViewProduct = () => {
@@ -39,9 +45,8 @@ const ViewProduct = () => {
   }
   return (
     <>
-      <SearchBar />
-      <Box p={4}>
-        <Card m={2} bgColor={"#E2E8F0"} p={2}>
+      <Box p={4} ml={4} maxWidth={{ base: "100%", md: "100%", sm: "100%" }}>
+        <Card p={4}>
           <CardBody>
             {isLoading ? (
               <Spinner />
@@ -57,14 +62,52 @@ const ViewProduct = () => {
                   stock,
                 }: item) => (
                   <Stack key={id}>
-                    <Flex>
-                      <Image boxSize={"400px"} width={"60%"} src={thumbnail} />
-                      <Stack pl={8}>
-                        <Text fontSize={"md"}>{category?.toUpperCase()}</Text>
-                        <Text fontSize={"lg"} fontWeight={"bold"}>
+                    <Flex
+                      direction={{ base: "column", sm: "column", md: "row" }}
+                    >
+                      <Box
+                        width={"100%"}
+                        display={"flex"}
+                        flexDirection={"column"}
+                        justifyContent={"flex-end"}
+                        alignItems={"center"}
+                      >
+                        <Image
+                          height={{ base: "auto", md: "315px" }}
+                          width={{
+                            base: "100%",
+                            sm: "100%",
+                            md: "100%",
+                            lg: "70%",
+                          }}
+                          src={thumbnail}
+                        />
+                      </Box>
+                      <Stack pl={{ base: 0, md: 8 }}>
+                        <Text fontSize={{ base: "sm", md: "md" }}>
+                          {category?.toUpperCase()}
+                        </Text>
+                        <Text
+                          fontSize={{
+                            base: "sm",
+                            sm: "md",
+                            md: "md",
+                            xl: "lg",
+                          }}
+                          fontWeight={"bold"}
+                        >
                           {title}
                         </Text>
-                        <Text fontSize={"lg"} fontWeight={"bold"}>
+                        <Text
+                          fontSize={{
+                            base: "sm",
+                            sm: "md",
+                            md: "md",
+                            xl: "lg",
+                          }}
+                          fontWeight={"bold"}
+                          color={"blue.600"}
+                        >
                           ${price}
                         </Text>
                         <Text fontSize={"lg"} fontWeight={"light"}>
@@ -72,21 +115,36 @@ const ViewProduct = () => {
                         </Text>
 
                         <Badge
-                          fontSize={"lg"}
+                          fontSize={{ base: "sm", md: "lg" }}
                           colorScheme="blue"
                           rounded={"md"}
-                          maxWidth={"220px"}
+                          variant="solid"
+                          maxWidth={"fit-content"}
                         >
-                          {" "}
-                          {stock} Products in Stock
+                          {stock} in Stock
                         </Badge>
-                        <Button
-                          maxWidth={"100px"}
-                          colorScheme="blue"
-                          size={"lg"}
-                        >
-                          Buy
-                        </Button>
+                        <HStack>
+                          <NumberInput
+                            size="sm"
+                            maxW={20}
+                            defaultValue={1}
+                            min={0}
+                            max={stock}
+                          >
+                            <NumberInputField />
+                            <NumberInputStepper>
+                              <NumberIncrementStepper />
+                              <NumberDecrementStepper />
+                            </NumberInputStepper>
+                          </NumberInput>
+                          <Button
+                            maxWidth={"100px"}
+                            colorScheme="blue"
+                            size={"lg"}
+                          >
+                            Buy
+                          </Button>
+                        </HStack>
                       </Stack>
                     </Flex>
                   </Stack>

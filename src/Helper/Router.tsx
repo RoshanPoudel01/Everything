@@ -5,22 +5,47 @@ import SearchResult from "../Display/SearchResult";
 import { NavLink } from "./NavLink";
 import ProductForm from "../Form/ProductForm";
 import Home from "../Display/Home";
+
+import NavBar from "../Components/Navbar/NavBar";
+import SideItem from "../Components/SideBar/SideItem";
 export const router = createBrowserRouter([
   {
     path: NavLink?.FirstPage,
-    element: <Home />,
+    element: (
+      <NavBar>
+        <SideItem>
+          <Home />
+        </SideItem>
+      </NavBar>
+    ),
   },
   {
     path: NavLink?.Products,
-    element: <Products />,
+    element: (
+      <NavBar>
+        <SideItem>
+          <Products />
+        </SideItem>
+      </NavBar>
+    ),
   },
   {
     path: NavLink?.ViewProduct,
-    element: <ViewProduct />,
+    element: (
+      <NavBar>
+        <ViewProduct />
+      </NavBar>
+    ),
   },
   {
     path: NavLink?.Search,
-    element: <SearchResult />,
+    element: (
+      <NavBar>
+        <SideItem>
+          <SearchResult />
+        </SideItem>
+      </NavBar>
+    ),
   },
   {
     path: NavLink?.ProductForm,

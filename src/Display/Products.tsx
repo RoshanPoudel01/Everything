@@ -96,7 +96,7 @@ const Products = () => {
   }
   return (
     <>
-      <SearchBar />
+     
       <Box bg={"whiteAlpha"} p={4}>
         <InputGroup mt={2}>
           <Text>Select Limit</Text>

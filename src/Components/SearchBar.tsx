@@ -19,7 +19,11 @@ const SearchBar = () => {
     navigate(`/search?title=${searchValue}`);
   };
   return (
-    <Box p={2}>
+    <Box
+      p={2}
+      display={{ sm: "none", base: "none", md: "flex" }}
+      maxWidth={"fit-content"}
+    >
       <InputGroup>
         <InputLeftElement>
           <GoSearch />

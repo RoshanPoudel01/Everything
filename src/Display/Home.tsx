@@ -2,20 +2,18 @@ import {
   Box,
   Card,
   CardBody,
+  CardFooter,
   CardHeader,
   Center,
   SimpleGrid,
   Spinner,
-  Text,
 } from "@chakra-ui/react";
 import apiCall from "../Helper/Axios";
-// import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import ItemCard from "../Components/ItemCard";
 import { item } from "../Interface/Item";
-import SearchBar from "../Components/SearchBar";
-import RangeSlider from "../Components/Range";
-import SideItem from "../Components/SideBar/SideItem";
+import Pagination from "../Components/Pagination";
+
 const Home = () => {
   const getAllProducts = async () => {
     const productItems = await apiCall.get("products");
@@ -40,9 +38,7 @@ const Home = () => {
   //   findLargest();
   return (
     <>
-      <SideItem />
-      <SearchBar />
-      <RangeSlider min={0} max={2000} step={100} />
+      {/* <RangeSlider min={0} max={2000} step={100} /> */}
       <Card>
         <CardHeader>
           {isLoading ? (
@@ -57,8 +53,8 @@ const Home = () => {
             </Center>
           ) : (
             <CardBody>
-              <SimpleGrid columns={{ xl: 3, md: 2, sm: 1 }} gap={2}>
-                {data?.map(
+              <SimpleGrid columns={{ base: 1, xl: 3, md: 2, sm: 1 }} gap={8}>
+                {/* {data?.map(
                   ({ id, thumbnail, title, price, description }: item) => (
                     <ItemCard
                       isGrid
@@ -70,11 +66,25 @@ const Home = () => {
                       description={description}
                     />
                   )
-                )}
+                )} */}
+                <ItemCard
+                  isGrid
+                  // key={id}
+                  id={1}
+                  thumbnail={
+                    "https://images.freeimages.com/images/large-previews/56d/peacock-1169961.jpg"
+                  }
+                  title={"Peacock"}
+                  price={10000}
+                  description={"description"}
+                />
               </SimpleGrid>
             </CardBody>
           )}
         </CardHeader>
+        <CardFooter>
+          <Pagination />
+        </CardFooter>
       </Card>
     </>
   );

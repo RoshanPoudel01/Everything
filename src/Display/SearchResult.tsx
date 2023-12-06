@@ -26,7 +26,6 @@ const SearchResult = () => {
   // console.log(data);
   return (
     <>
-      <SearchBar />
       {isLoading ? (
         <Center>
           <Spinner

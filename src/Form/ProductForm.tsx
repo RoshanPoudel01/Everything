@@ -73,8 +73,6 @@ const ProductForm = () => {
 
   return (
     <>
-      <SearchBar />
-
       <Box overflow={"auto"} p={4}>
         <FormControl>
           <SimpleGrid columns={2} spacing={2}>

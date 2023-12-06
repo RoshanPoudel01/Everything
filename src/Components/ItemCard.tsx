@@ -1,10 +1,12 @@
 import {
+  Box,
   Button,
   ButtonGroup,
   Card,
   CardBody,
   CardFooter,
   Divider,
+  Flex,
   GridItem,
   Heading,
   Image,
@@ -32,18 +34,36 @@ const ItemCard = ({
     <>
       {isGrid ? (
         <GridItem>
-          <Card maxW="sm">
-            <CardBody>
-              <Image
-                src={thumbnail}
-                height={"200px"}
-                alt={title}
-                borderRadius="lg"
-              />
+          <Card bgColor={"#F5F5F5"} width={"auto"}>
+            <CardBody
+              width={"100%"}
+              display={"flex"}
+              flexDirection={"column"}
+              alignItems={"flex-start"}
+              gap={"16px"}
+            >
+              <Box
+                width={"auto"}
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                height={"180px"}
+                p={[4, 6]}
+                borderRadius={"4px"}
+              >
+                <Image
+                  // objectFit="cover"
+                  src={thumbnail}
+                  height={{ base: "50%", sm: "70%", md: "80%", lg: "100%" }}
+                  width={{ base: "50%", sm: "70%", md: "80%", lg: "100%" }}
+                  alt={title}
+                  // flexShrink={0}
+                />
+              </Box>
               <Stack mt="6" spacing="3">
-                <Heading size="md" height={"50px"} overflow={"hidden"}>
+                <Text height={"30px"} fontWeight={"bold"} overflow={"hidden"}>
                   {title}
-                </Heading>
+                </Text>
 
                 <Text color="blue.600" fontSize="2xl">
                   ${price}
@@ -54,13 +74,20 @@ const ItemCard = ({
             <CardFooter>
               <ButtonGroup spacing="2">
                 <Button
+                  fontSize={{ base: "10", sm: "12", md: "14", lg: "16" }}
+                  width={"auto"}
                   variant="solid"
                   colorScheme="blue"
                   onClick={() => handleClick(title)}
                 >
                   View More
                 </Button>
-                <Button variant="solid" color="#2D3748">
+                <Button
+                  variant="solid"
+                  width={"auto"}
+                  fontSize={{ base: "10", sm: "12", md: "14", lg: "16" }}
+                  color="#2D3748"
+                >
                   Buy
                 </Button>
               </ButtonGroup>
