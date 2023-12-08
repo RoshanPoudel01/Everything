@@ -25,14 +25,15 @@ import { useQuery } from "@tanstack/react-query";
 const ViewProduct = () => {
   const [searchParams] = useSearchParams();
   const title: string | null = searchParams.get("title");
-  //   console.log(title);
+
+  // console.log(title);
 
   const getProduct = async () => {
     const productItem = await apiCall.get(`products/search?q=${title}`);
     const displayProduct = productItem?.data?.products?.filter(
       (res: any) => res.title === title
     );
-    console.log(displayProduct);
+    // console.log(displayProduct);
     return displayProduct;
   };
 
@@ -45,7 +46,12 @@ const ViewProduct = () => {
   }
   return (
     <>
-      <Box p={4} ml={4} maxWidth={{ base: "100%", md: "100%", sm: "100%" }}>
+      <Box
+        px={{ base: 0, sm: 0, md: 4, lg: 4 }}
+        py={{ base: 2, sm: 0, md: 4, lg: 4 }}
+        ml={4}
+        maxWidth={{ base: "100%", md: "100%", sm: "100%" }}
+      >
         <Card p={4}>
           <CardBody>
             {isLoading ? (

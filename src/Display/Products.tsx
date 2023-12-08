@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import apiCall from "../Helper/Axios";
 // import SearchBar from "../Components/SearchBar";
 import {
@@ -10,40 +10,32 @@ import {
   Select,
   Spinner,
   Text,
-  Table,
-  Thead,
-  Tbody,
-  Tfoot,
-  Tr,
-  Th,
-  Td,
   InputGroup,
 } from "@chakra-ui/react";
 
 import { useQuery } from "@tanstack/react-query";
 
-import {
-  createColumnHelper,
-  flexRender,
-  useReactTable,
-  getCoreRowModel,
-} from "@tanstack/react-table";
+// import {
+//   createColumnHelper,
+//   flexRender,
+//   useReactTable,
+//   getCoreRowModel,
+// } from "@tanstack/react-table";
 import ItemCard from "../Components/ItemCard";
 import { item } from "../Interface/Item";
-import SearchBar from "../Components/SearchBar";
-type Product = {
-  // brand: string;
-  category: string;
-  description: string;
-  // discountPercentage: string;
-  id: number;
-  // images: string[] | string;
-  price: number;
-  title: string;
-  stock: number;
-  // rating: number;
-  // thumbnail: string;
-};
+// type Product = {
+//   // brand: string;
+//   category: string;
+//   description: string;
+//   // discountPercentage: string;
+//   id: number;
+//   // images: string[] | string;
+//   price: number;
+//   title: string;
+//   stock: number;
+//   // rating: number;
+//   // thumbnail: string;
+// };
 // const columnHelper = createColumnHelper<Product>();
 // const columns = [
 //   columnHelper.accessor("id", {
@@ -96,8 +88,7 @@ const Products = () => {
   }
   return (
     <>
-     
-      <Box bg={"whiteAlpha"} p={4}>
+      <Box bg={"whiteAlpha"} p={{ base: 0, sm: 0, md: 4, lg: 4 }}>
         <InputGroup mt={2}>
           <Text>Select Limit</Text>
           <Select
@@ -118,7 +109,13 @@ const Products = () => {
           <CardHeader>
             <Text align={"center"}>Products List</Text>
             {isLoading ? (
-              <Center>
+              <Box
+                display={"flex"}
+                alignItems={"center"}
+                justifyContent={"center"}
+                height={"100vh"}
+                width={"200vh"}
+              >
                 <Spinner
                   thickness="4px"
                   speed="0.65s"
@@ -126,7 +123,7 @@ const Products = () => {
                   color="blue.500"
                   size="xl"
                 />
-              </Center>
+              </Box>
             ) : (
               <CardBody>
                 {/* <Table>

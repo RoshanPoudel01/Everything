@@ -8,6 +8,7 @@ import Home from "../Display/Home";
 
 import NavBar from "../Components/Navbar/NavBar";
 import SideItem from "../Components/SideBar/SideItem";
+import Footer from "../Components/Footer/Footer";
 export const router = createBrowserRouter([
   {
     path: NavLink?.FirstPage,
@@ -16,6 +17,7 @@ export const router = createBrowserRouter([
         <SideItem>
           <Home />
         </SideItem>
+        <Footer />
       </NavBar>
     ),
   },

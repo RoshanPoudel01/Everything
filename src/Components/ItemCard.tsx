@@ -6,11 +6,9 @@ import {
   CardBody,
   CardFooter,
   Divider,
-  Flex,
   GridItem,
   Heading,
   Image,
-  SimpleGrid,
   Stack,
   Text,
 } from "@chakra-ui/react";
@@ -41,6 +39,7 @@ const ItemCard = ({
               flexDirection={"column"}
               alignItems={"flex-start"}
               gap={"16px"}
+              overflow="hidden"
             >
               <Box
                 width={"auto"}
@@ -65,7 +64,10 @@ const ItemCard = ({
                   {title}
                 </Text>
 
-                <Text color="blue.600" fontSize="2xl">
+                <Text
+                  color="blue.600"
+                  fontSize={{ base: 12, sm: 14, md: 14, lg: 16 }}
+                >
                   ${price}
                 </Text>
               </Stack>
@@ -103,7 +105,7 @@ const ItemCard = ({
         >
           <Image
             objectFit="cover"
-            maxW={{ base: "100%", sm: "200px" }}
+            width={{ base: "5%", sm: "200px", md: "250px", lg: "20%" }}
             src={thumbnail}
             alt={title}
           />

@@ -4,20 +4,29 @@ import apiCall from "../Helper/Axios";
 import { item } from "../Interface/Item";
 import { AbsoluteCenter, Box, Center, Spinner } from "@chakra-ui/react";
 import ItemCard from "../Components/ItemCard";
-import SearchBar from "../Components/SearchBar";
+
 const SearchResult = () => {
   const [searchParam] = useSearchParams();
 
   const title = searchParam.get("title");
+  const category = searchParam.get("category");
   const getSearchedProducts = async () => {
     // console.log(title);
-    const product = await apiCall.get(`products/search?q=${title}`);
-    const searchedValue = product?.data?.products;
-    console.log(searchedValue);
-    return searchedValue;
+
+    if (title) {
+      const product = await apiCall.get(`products/search?q=${title}`);
+      const searchedValue = product?.data?.products;
+      // console.log(searchedValue);
+      return searchedValue;
+    } else {
+      const productItem = await apiCall.get(`products/category/${category}`);
+
+      // console.log(productItem?.data?.products);
+      return productItem?.data?.products;
+    }
   };
   const { data, isLoading, error } = useQuery({
-    queryKey: ["product", title],
+    queryKey: ["product", title, category],
     queryFn: getSearchedProducts,
   });
   if (error) {
@@ -27,7 +36,13 @@ const SearchResult = () => {
   return (
     <>
       {isLoading ? (
-        <Center>
+        <Box
+          height={"100vh"}
+          width={"200vh"}
+          display={"flex"}
+          justifyContent={"center"}
+          alignItems={"center"}
+        >
           <Spinner
             thickness="4px"
             speed="0.65s"
@@ -35,9 +50,9 @@ const SearchResult = () => {
             color="blue.500"
             size="xl"
           />
-        </Center>
+        </Box>
       ) : (
-        <Box p={4} gap={4}>
+        <Box p={{ base: 0, sm: 0, md: 4, lg: 4 }} gap={4}>
           {data &&
             data?.map(({ thumbnail, title, price, description, id }: item) => (
               <ItemCard

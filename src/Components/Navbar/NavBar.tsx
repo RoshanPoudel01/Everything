@@ -10,7 +10,6 @@ import {
   PopoverTrigger,
   Popover,
   PopoverContent,
-  PopoverCloseButton,
   PopoverBody,
 } from "@chakra-ui/react";
 import { HamburgerIcon, CloseIcon } from "@chakra-ui/icons";
@@ -22,7 +21,7 @@ const NavBar: any = ({ children }: any) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   return (
-    <Box minWidth={{ base: "100%" }}>
+    <Box minWidth={{ base: "100%" }} overflow={"auto"}>
       <Box
         bgColor={"black"}
         height={"30px"}
@@ -72,7 +71,14 @@ const NavBar: any = ({ children }: any) => {
           </Popover>
         </Flex>
       </Box>
-      <Box p={4} display={"flex"} height={"100%"}>
+      <Box
+        p={{ base: 0, sm: 0, md: 4, lg: 4 }}
+        display={"flex"}
+        flexDir={"column"}
+        justifyContent={{ base: "space-between" }}
+        height={"100%"}
+        gap={8}
+      >
         {children}
       </Box>
     </Box>

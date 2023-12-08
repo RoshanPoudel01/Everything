@@ -13,7 +13,6 @@ import {
 import apiCall from "../Helper/Axios";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-
 const schema = yup.object().shape({
   username: yup
     .string()
