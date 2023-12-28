@@ -1,7 +1,6 @@
 {
   "name": "everything",
   "private": true,
-  "homepage":"https://github.com/RoshanPoudel01",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
